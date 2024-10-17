@@ -83,7 +83,6 @@ then
 	"$UNCOMPRESS_CMD" "$LATEST_COMPRESSED_PATH"
 fi
 
-
 if [ -f "$LATEST_PATH" ]
 then
 	echo 'Linking ...'

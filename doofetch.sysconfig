@@ -1,3 +1,4 @@
+## Path:    System/Management
 ## Type: string
 ## Default: None
 #
@@ -9,7 +10,6 @@ URL=https://download.opensuse.org/repositories/openSUSE:/infrastructure:/Images:
 ## Default: None
 #
 # Directory the downloaded files should be stored in.
-#
 #
 TARGETDIR=/data0/kvm/os-images
 
