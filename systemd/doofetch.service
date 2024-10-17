@@ -1,0 +1,8 @@
+[Unit]
+Description=Image update
+Wants=network.target network-online.target
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=__BINDIR__/doofetch
