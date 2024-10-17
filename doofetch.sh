@@ -55,7 +55,7 @@ LOCATION="$($CURL -w '%{redirect_url}' "$URL")"
 
 LATEST_FILE="$(basename "$LOCATION" "$COMPRESSION_SUFFIX")"
 echo "Latest file: $LATEST_FILE"
-CURRENT_FILE="$(basename "$(readlink -e "$TARGETLINK")")" || CURRENT_FILE=''
+CURRENT_FILE="$(basename "$(readlink -e "$TARGETDIR/$TARGETLINK")")" || CURRENT_FILE=''
 echo "Current file: $CURRENT_FILE"
 
 if [ "$LATEST_FILE" = "$CURRENT_FILE" ]
