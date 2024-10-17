@@ -1,0 +1,22 @@
+## Type: string
+## Default: None
+#
+# Full URL to file on the download server.
+#
+URL=https://download.opensuse.org/repositories/openSUSE:/infrastructure:/Images:/15.6/images/admin-openSUSE-Leap-15.6.x86_64-qcow.qcow2
+
+## Type: string
+## Default: None
+#
+# Directory the downloaded files should be stored in.
+#
+#
+TARGETDIR=/data0/kvm/os-images
+
+## Type: string
+## Default: None
+#
+# Symlink to point to the downloaded and verified file,
+# relative to TARGETDIR.
+#
+TARGETLINK=admin-minimal-latest
