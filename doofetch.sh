@@ -75,6 +75,7 @@ LATEST_COMPRESSED_PATH="${LATEST_PATH}${COMPRESSION_SUFFIX}"
 
 echo 'Verifying ...'
 gpg --verify "$LATEST_COMPRESSED_PATH".sha256.asc
+cd "$TARGETDIR"
 sha256sum -c "$LATEST_COMPRESSED_PATH".sha256
 
 if [ -n "$UNCOMPRESS_CMD" ]
@@ -83,11 +84,13 @@ then
 	"$UNCOMPRESS_CMD" "$LATEST_COMPRESSED_PATH"
 fi
 
-if [ -f "$LATEST_PATH" ]
+if ! [ -f "$LATEST_PATH" ]
 then
-	echo 'Linking ...'
-	cd "$TARGETDIR"
-	ln -fsTv "$LATEST_FILE" "$TARGETLINK"
+	echo 'File does not exist.'
+	exit 1
 fi
+
+echo 'Linking ...'
+ln -fsTv "$LATEST_FILE" "$TARGETLINK"
 
 echo 'Update completed successfully.'
