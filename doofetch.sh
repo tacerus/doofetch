@@ -32,10 +32,11 @@ then
 	exit 1
 fi
 
-COMPRESSION_SUFFIX="${COMPRESSION_SUFFIX##*.}"
+COMPRESSION_SUFFIX="${URL##*.}"
 
 case "$COMPRESSION_SUFFIX" in
 	'xz' )
+		COMPRESSION_SUFFIX=".$COMPRESSION_SUFFIX"
 		UNCOMPRESS_CMD='unxz'
 		echo 'Expecting XZ compression.'
 		;;
