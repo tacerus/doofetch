@@ -52,7 +52,7 @@ set -u
 CURL='curl -fsS'
 
 echo "Resolving $URL ..."
-LOCATION="$($CURL -w '%{redirect_url}' "$URL")"
+LOCATION="$($CURL -o /dev/null -w '%{redirect_url}' "$URL")"
 
 LATEST_FILE="$(basename "$LOCATION" "$COMPRESSION_SUFFIX")"
 echo "Latest file: $LATEST_FILE"
