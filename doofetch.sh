@@ -26,11 +26,43 @@ then
 	exit 1
 fi
 
+if [ -z "$KEEP_N" ]
+then
+	echo 'Missing KEEP_N, defaulting to -1 (will not perform image cleanup).'
+	KEEP_N=-1
+fi
+
 if ! [ -d "$TARGETDIR" ]
 then
 	echo "$TARGETDIR is not a directory."
 	exit 1
 fi
+
+cleanup() {
+	echo 'Cleaning up ...'
+
+	if [ "$KEEP_N" -gt -1 ]
+	then
+		# shellcheck disable=SC2162
+		find "$TARGETDIR" -type f \( -name '*.qcow2' -o -name '*.raw' \) -not -name "$LATEST_FILE" \
+			| sort -V \
+			| head -n -"$KEEP_N" \
+			| while read file
+		do
+			rm -v "$file"
+			for suffix in sha256 sha256.asc xz
+			do
+				suffixed_file="$file.$suffix"
+				if [ -f "$suffixed_file" ]
+				then
+					rm -v "$suffixed_file"
+				fi
+			done
+		done
+	fi
+
+	echo 'Cleanup completed.'
+}
 
 COMPRESSION_SUFFIX="${URL##*.}"
 
@@ -62,6 +94,7 @@ echo "Current file: $CURRENT_FILE"
 if [ "$LATEST_FILE" = "$CURRENT_FILE" ]
 then
 	echo 'File is already up to date, bye.'
+	cleanup
 	exit 0
 fi
 
@@ -95,3 +128,5 @@ echo 'Linking ...'
 ln -fsTv "$LATEST_FILE" "$TARGETLINK"
 
 echo 'Update completed successfully.'
+
+cleanup

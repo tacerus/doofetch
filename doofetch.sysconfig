@@ -20,3 +20,11 @@ TARGETDIR='/data0/kvm/os-images'
 # relative to TARGETDIR.
 #
 TARGETLINK='admin-minimal-latest'
+
+## Type: integer
+## Default: 2
+#
+# Amount of old images to keep.
+# If set to -1, no images will be removed.
+# If set to any higher number, all images except the latest + N will be removed.
+KEEP_N=2
